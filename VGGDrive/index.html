@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="VGGDrive: Empowering Vision-Language Models with Cross-View Geometric Grounding for Autonomous Driving">
+  <meta name="keywords" content="Vision-Language Models, Autonomous Driving, Large Multimodal Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VGGDrive: Empowering Vision-Language Models with Cross-View Geometric Grounding for Autonomous Driving</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./static/css/academicons.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icons/emova.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://kit.fontawesome.com/d3915a16e2.js" crossorigin="anonymous"></script>
+</head>
+
+	<!-- <style>
+		.chat-history {
+			flex-grow: 1;
+			overflow-y: auto;
+			/* overflow-x: hidden; */
+			padding: 5px;
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.chat-history img {
+			display: none;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.chat-history img.active {
+			display: block;
+		}
+	</style> -->
+  	
+  <style>
+		.chat-history {
+			flex-grow: 1;
+			overflow-y: auto;
+			/* overflow-x: hidden; */
+			padding: 5px;
+			border-bottom: 1px solid #ccc;
+			margin-bottom: 10px;
+			text-align: left;
+		}
+
+		.chat-history figure {
+			display: none;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+		.chat-history figure.active {
+			display: block;
+		}
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+    
+	</style>
+  
+<body>
+
+<section class="section" style="margin-top: -1px;">
+  <!-- <div class="container pt-5 mt-0 shadow p-5 mb-0 bg-white rounded" style="width: 80%;"> -->
+  <div class="container" style="width: 100%;">
+    <!-- conflicts. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <!-- <h2 class="title is-3">General Capabilities & Generalization Ability</h2> -->
+        <div class="teaser">
+          <img src="./static/images/1.png"  width="1200" height="1200">
+        </div>
+        <p><br/></p>  
+      </div>
+    </div>
+    <!--/ safety persists. -->
+  </div>
+</section>
+
+<section class="hero" style="margin-top: -100px;">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><b>VGGDrive:</b>  </h1>
+          <h3 class="title is-2 publication-title"> Empowering Vision-Language Models with Cross-View Geometric Grounding for Autonomous Driving </h3>
+          <!-- <h2 class="title is-3 publication-title"> with Vivid Emotions   </h2> -->
+          <div class="is-size-4 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=WjdWNi8AAAAJ&hl=zh-CN">Jie Wang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=McEfO8UAAAAJ&hl=zh-CN&oi=sra">Guang Li</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhijian11.github.io/">Zhijian Huang</a><sup>2</sup>,</span><br>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=IU1xOeEAAAAJ&hl=zh-CN&oi=sra">Chenxu Dang</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=68tXhe8AAAAJ&hl=zh-CN&oi=sra">Hangjun Ye</a><sup>2</sup>,
+            <span class="author-block">
+              <a href="https://cic.tju.edu.cn/faculty/hanyahong/">Yahong Han</a><sup>1&#8224</sup>,</span>
+            <span class="author-block">
+              <a href="https://long.ooo/">Long Chen</a><sup>2</sup>,</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>College of Intelligence and Computing, Tianjin University,</span>
+            <span class="author-block"><sup>2</sup>Xiaomi EV</span>
+            <br>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">(
+            <sup><span>&#8224;</span></sup>Corresponding authors.
+            )</span>
+            <div style="display:flex; justify-content:center; align-items:center; gap:50px; margin-top:15px;">
+              <img src="./static/images/TJU.png" alt="Tianjin University Logo" style="height:80px; width:auto;">
+              <img src="./static/images/xiaomi.png" alt="Xiaomi EV Logo" style="height:90px; width:auto;">
+            </div>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Arxiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2602.20794"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/WJ-CV/VGGDrive"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Hugging Face Link -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/wang-jie825/VGGDrive_Qwen_json/tree/main"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon" style="margin-right:4px;">📦</span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <!-- Hugging Face Link -->
+              <span class="link-block">
+                <a href="https://huggingface.co/wang-jie825/VGGDrive_model/tree/main"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon" style="margin-right:4px;">⬇️</span>
+                  <span>Checkpoints</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background-color:#f1f1f1; padding-top:2rem;">
+    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered" style="max-width: 1200px; margin: 0 auto;">
+      <div class="column is-five-fifths">
+        <h2 class="title is-2">🔬 Overview</h2>
+        <div class="content has-text-justified" style="font-size:20px; line-height:1.5;">
+        <p>
+        🧩 Conventional VLMs in autonomous driving “understand language but lack geometric insight.” 
+        Even when augmented with constructed Q&A data for auxiliary training, such approaches provide 
+        only superficial improvements and fail to address the core limitation in cross-view 3D spatial understanding.
+        </p>
+
+        <p>
+        💡 <strong>VGGDrive</strong> moves beyond data-level fixes and <strong>charts a new course</strong> by upgrading 
+        the capability structure itself. It introduces a mature 3D foundation model as a geometric backbone 
+        for VLMs, establishing a new technical paradigm that empowers Vision-Language Agents (VLAs) with 
+        3D modeling capability and provides a scalable, sustainable pathway for enhancing autonomous 
+        driving systems.
+        </p>
+
+        <p>
+        🛠️ The core innovation lies in the design of a <strong>plug-and-play Cross-View Geometric Enabler (CVGE)</strong>. 
+        Through a hierarchical adaptive injection mechanism, VGGDrive achieves deep coupling between 
+        a frozen 3D foundation model and a VLM without altering the original VLM architecture. 
+        This mechanism efficiently injects 3D geometric features into the model, enabling genuine 
+        cross-view 3D geometric modeling capability for autonomous driving VLAs.
+        </p>
+        </div>
+        <div class="columns is-centered" style="margin-top: -10px;">
+          
+          <div class="column is-half">
+            <figure class="image">
+              <img src="./static/images/fig1.png" alt="Figure 1">
+            </figure>
+          </div>
+
+        <div class="column is-half">
+          <div class="content has-text-justified"  style="font-size:19px; line-height:1.5;">
+            <p>
+            📈 Importantly, <strong>VGGDrive</strong> is not limited to single-task optimization. 
+            It consistently improves performance across <strong>five mainstream autonomous driving benchmarks</strong>, 
+            covering cross-view risk perception, scene understanding, motion and state prediction, 
+            and trajectory planning, thereby enhancing the full pipeline from perception to decision-making.
+            </p>
+          </div>
+
+          <figure class="image" style="margin-top:-10px;">
+            <img src="./static/images/fig2.png" alt="Figure 2" style="max-width: 85%; margin: 0 auto; display: block;">
+          </figure>
+          </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  <!-- </div> -->
+</section>
+
+
+<section class="section">
+  <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+    <!-- conflicts. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-fifths">
+        <h2 class="title is-2">🏗️ Architecture</h2>
+        <div class="teaser">
+          <img src="./static/images/fig3.png"  width="1250" height="1250">
+        </div>
+        <p><br/></p>  
+      </div>
+    </div>
+    <!--/ safety persists. -->
+  <!-- </div> -->
+</section>
+<hr>
+<section class="section" style="margin-top: -30px;">
+    <!-- <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded" style="width: 50%;"> -->
+        <div class="columns is-centered has-text-centered" style="width: 60%; margin: 0 auto;">
+          <div class="column is-five-fifths">
+            <h2 class="title is-2">📊 Quantitative Results</h2>
+        <div class="teaser">
+          <img src="./static/images/fig5.png" width="1350" height="1350">
+        </div>
+        <div class="content has-text-justified" style="font-size:18px; line-height:1.5; max-width:1250px; margin:0 auto;">
+        <p>
+        Compared to existing SOTA methods with SFT, VGGDrive shows clear advantages on the NNAVSIM v1 benchmark, 
+        indicating that enhancing the base VLM with cross-view geometric capabilities is a more effective approach 
+        than relying solely on auxiliary action decoders. VGGDrive also demonstrates strong performance on NuInstruct and DriveLM benchmarks, 
+        excelling in cross-view object perception, state prediction, and action planning tasks.
+        </p>
+        </div>
+        <hr>
+        <div style="margin-top:-20px;">
+          <div class="teaser">
+            <img src="./static/images/fig6.png" width="1350" height="1350">
+          </div>
+        <div class="content has-text-justified" style="font-size:18px; line-height:1.5; max-width:1250px; margin:0 auto;">
+          <p>
+          VGGDrive excels in both language-focused tasks like OmniDrive and open-loop trajectory planning on NuScenes, 
+          demonstrating the effectiveness of integrating 3D foundation models to enhance cross-view perception, trajectory prediction, 
+          and overall VLM-based autonomous driving performance..
+          </p>
+          </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</section>
+<hr>
+<section class="section" style="margin-top: -20px;">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Visualizations</h2>
+    </div>
+  </div>
+
+  <div class="container mt-0">
+    <!-- 翻页按钮 -->
+    <div class="form-row" style="justify-content: center; margin-bottom:10px;">
+      <div class="btn-group" role="group" style="display: flex; gap: 10px; justify-content: center;">
+        <button type="button" id="prev-btn" class="btn btn-primary" style="background-color:black; color:white; border-color:black;">
+          <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+        <button type="button" id="next-btn" class="btn btn-primary" style="background-color:black; color:white; border-color:black;">
+          <i class="material-icons">keyboard_arrow_right</i>
+        </button>
+      </div>
+    </div>
+
+    <!-- GIF 容器 -->
+    <div class="card mb-4" style="width: 100%; margin:0 auto;">
+      <div id="gif-container" class="card-body" style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;"></div>
+      <!-- 统一底部说明 -->
+      <div style="text-align:center; font-size:18px; color:#555; margin-top:2px;">
+        <sup>Green indicates GT trajectories, red indicates predicted trajectories.</sup>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // GIF 文件列表
+  const gifs = [
+    './static/visualization/1.gif',
+    './static/visualization/2.gif',
+    './static/visualization/3.gif',
+    './static/visualization/4.gif',
+    './static/visualization/5.gif',
+    './static/visualization/6.gif',
+    './static/visualization/7.gif',
+    './static/visualization/8.gif'
+  ];
+
+  const container = document.getElementById('gif-container');
+  let currentPage = 0;
+  const perPage = 2; // 每页两列
+
+  function renderPage() {
+    container.innerHTML = '';
+    const start = currentPage * perPage;
+    const end = start + perPage;
+    const pageItems = gifs.slice(start, end);
+
+    pageItems.forEach(src => {
+      const figure = document.createElement('figure');
+      figure.style.flex = '0 0 48%'; // 两列布局
+      figure.style.textAlign = 'center';
+
+      const img = document.createElement('img');
+      img.src = src;
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      figure.appendChild(img);
+
+      container.appendChild(figure);
+    });
+  }
+
+  // 左右按钮绑定
+  document.getElementById('prev-btn').addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage--;
+      renderPage();
+    }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', () => {
+    if ((currentPage + 1) * perPage < gifs.length) {
+      currentPage++;
+      renderPage();
+    }
+  });
+
+  // 初始渲染
+  renderPage();
+</script>
+
+<section class="section"  style="margin-top: -90px;">
+  <div class="container mt-0" style="max-width:1900px; margin:0 auto;">
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <div class="card mb-4" style="width: 70%; display: flex; align-items: center;">
+        <div class="card-body" id="selected-question" style="display: flex; height: auto;">
+          <div class="chat-history">
+            <article class="media">
+              <figure class="active">
+                <img src="./static/visualization/1.png">
+              </figure>
+              <figure>
+                <img src="./static/visualization/2.png">
+              </figure>
+						</article>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row" style="justify-content: center;">
+      <div class="form-group col-md-1">
+        <!-- <div class="col-md-0" style="width: 100%"><label>&nbsp;</label></div> -->
+        <div class="btn-group" role="group" aria-label="Left and Right Controller"
+          style="width: 100%;align-items: flex-end;justify-content: center;flex-direction: row;display: flex;">
+          <button type="button" class="form-control btn btn-primary" id="prev-question" style="background-color: black; color: white; border-color: black;"><i
+              class="material-icons">keyboard_arrow_left</i></button>
+          <button type="button" class="form-control btn btn-primary" id="next-question" style="background-color: black; color: white; border-color: black;"><i
+              class="material-icons">keyboard_arrow_right</i></button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+<section class="section" id="BibTeX">
+  <div class="container" style="max-width:1250px; margin:0 auto;">
+    <h2 class="title">📌 BibTeX</h2>
+    <pre style="font-size:20px; line-height:1.5; padding:15px; background-color:#f5f5f5; border-radius:8px; overflow-x:auto;">
+<code>@article{wang2026vggdrive,
+  title={VGGDrive: Empowering Vision-Language Models with Cross-View Geometric Grounding for Autonomous Driving},
+  author={Wang, Jie and Li, Guang and Huang, Zhijian and Dang, Chenxu and Ye, Hangjun and Han, Yahong and Chen, Long},
+  journal={arXiv preprint arXiv:2602.20794},
+  year={2026}
+}</code>
+    </pre>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const images = document.querySelectorAll('.chat-history figure');
+    let currentIndex = 0;
+
+    document.getElementById('prev-question').addEventListener('click', function () {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+      images[currentIndex].classList.add('active');
+    });
+
+    document.getElementById('next-question').addEventListener('click', function () {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+      images[currentIndex].classList.add('active');
+    });
+  });
+</script>
+
+
+<footer class="footer" style="background-color: #f1f1f1;">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2412.07689">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/WJ-CV/VGGDrive" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <center>The website template was adapted from <a href="https://nerfies.github.io/">Nerfies</a>.<br/>
+          @ VGGDrive Team
+          </center>
+        <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
