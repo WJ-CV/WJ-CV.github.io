@@ -4,7 +4,7 @@
 window.LECDRIVE_CONFIG = {
   links: {
     paper: '',       // 例如正式 arXiv URL，或 assets/LECDrive.pdf
-    code: '',        // 新仓库创建后填写其 URL
+    code: 'https://github.com/WJ-CV/LECDrive',        // 新仓库创建后填写其 URL
     dataset: 'https://huggingface.co/datasets/wang-jie825/LECDrive/tree/main',     // LECDrive 的数据链接，不沿用 VGGDrive 的下载地址
     checkpoints: 'https://huggingface.co/wang-jie825/LECDrive'
   },
