@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LECDrive: Think Densely, Act Sparsely. Latent expert cognitive chains for vision-language-action autonomous driving.">
+  <meta name="theme-color" content="#163c74">
+  <title>LECDrive · Think Densely, Act Sparsely</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/config.js" defer></script>
+  <script src="assets/main.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#overview">Skip to content</a>
+  <header class="site-nav">
+    <a class="wordmark" href="#top" aria-label="LECDrive home">LEC<span>Drive</span></a>
+    <nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#framework">Method</a><a href="#results">Results</a><a href="#demos">Demos</a><a href="#citation">Citation</a></nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="paper-title">
+      <p class="eyebrow">NEURIPS 2026</p>
+      <p class="hero-brand">LEC<span>Drive</span><i aria-hidden="true"></i></p>
+      <h1 id="paper-title">Think <em>Densely,</em> Act <em>Sparsely.</em></h1>
+      <p class="paper-subtitle">Latent Expert Cognitive Chains for<br class="desktop-break"> Vision-Language-Action Autonomous Driving</p>
+      <!-- Author information synchronized from README.md. -->
+      <div class="authors">
+        <a href="https://scholar.google.com/citations?hl=zh-CN&amp;user=WjdWNi8AAAAJ">Jie Wang<sup>1</sup></a>
+        <a href="https://scholar.google.com/citations?hl=zh-CN&amp;oi=sra&amp;user=McEfO8UAAAAJ">Guang Li<sup>3</sup></a>
+        <a href="https://zhijian11.github.io/">Zhijian Huang<sup>3</sup></a>
+        <a href="https://scholar.google.com/citations?user=hpEAymEAAAAJ&amp;hl=zh-CN&amp;oi=sra/">Jinlong Li<sup>3</sup></a>
+        <span class="author-break" aria-hidden="true"></span>
+        <a href="https://scholar.google.com/citations?hl=zh-CN&amp;oi=sra&amp;user=IU1xOeEAAAAJ">Chenxu Dang<sup>3</sup></a>
+        <a href="https://scholar.google.com/citations?hl=zh-CN&amp;oi=sra&amp;user=68tXhe8AAAAJ">Hangjun Ye<sup>3</sup></a>
+        <a href="https://cic.tju.edu.cn/faculty/hanyahong/">Yahong Han<sup>2,†</sup></a>
+        <a href="https://long.ooo/">Long Chen<sup>3</sup></a>
+      </div>
+      <p class="affiliations"><span><sup>1</sup> School of Artificial Intelligence, Shanxi University</span><span><sup>2</sup> School of Artificial Intelligence, Tianjin University</span><span><sup>3</sup> Xiaomi EV</span></p>
+      <p class="corresponding">† Corresponding author</p>
+      <div class="institution-logos" aria-label="Author institutions">
+        <figure><img src="assets/山西大学.jpg" alt="Shanxi University logo"><figcaption><sup>1</sup> Shanxi University</figcaption></figure>
+        <figure><img src="assets/TJU.png" alt="Tianjin University logo"><figcaption><sup>2</sup> Tianjin University</figcaption></figure>
+        <figure><img class="xiaomi-logo" src="assets/xiaomi.png" alt="Xiaomi EV logo"><figcaption><sup>3</sup> Xiaomi EV</figcaption></figure>
+      </div>
+      <div class="resource-links" id="resource-links" aria-label="Paper resources"></div>
+      <noscript><p>Paper, code and checkpoints: release links coming soon.</p></noscript>
+    </section>
+
+    <section class="overview section" id="overview" aria-labelledby="overview-title">
+      <div class="section-heading"><span class="section-no">01 / OVERVIEW</span><h2 id="overview-title">World understanding before driving actions.</h2></div>
+      <div class="overview-copy">
+        <p>Autonomous driving requires a rich understanding of visual appearance, semantic structure and spatial geometry. Yet conventional vision-language-action models learn to map dense, multi-view observations to sparse language responses or trajectory points. This mismatch can discard scene details that matter for driving but receive little direct supervision. <strong>We argue that a central limitation is the lack of an explicit mechanism that encourages VLAs to build structured world representations before generating actions.</strong></p>
+        <p><strong>LECDrive introduces “Think Densely, Act Sparsely”: build accurate, rich and structured world understanding in the latent space before producing sparse driving actions.</strong> Inspired by hierarchical human perception, it embeds a progressive Latent Expert Cognitive Chain within the VLA, guiding the model from visual representation to semantic understanding and spatial geometry.</p>
+        <ul>
+<li><strong>Progressive latent expert cognition.</strong> Compact task-specific tokens carry knowledge from DINOv3, SAM3 and DepthAnything3. These expert capabilities form an interdependent cognitive chain, where successive stages build upon earlier representations to develop increasingly structured scene understanding.</li>
+<li><strong>Dense knowledge internalization with efficient inference.</strong> Tokens injected after each view’s visual tokens aggregate information across VLM layers. Lightweight heads provide dense expert supervision during training, enabling the VLA to internalize visual, semantic and geometric knowledge without running the large teacher models at inference.</li>
+<li><strong>Structured motion with precise refinement.</strong> Motion Token + Offset combines discrete motion primitive retrieval with continuous offset correction. Discrete tokens capture the overall motion pattern, while continuous offsets refine its spatial precision to compose the future trajectory.</li>
+</ul>
+        <p>Experiments demonstrate improvements across trajectory planning, language-driven perception and prediction, supporting the value of dense world understanding across driving tasks. <strong>Sparse actions can be grounded in a rich internal understanding of the driving world.</strong></p>
+        <p><em>Figure 2. Quantitative comparison across planning, perception and prediction benchmarks.</em></p>
+        <div class="overview-evidence">
+          <div class="overview-evidence-copy">
+            <p>Experiments demonstrate improvements across trajectory planning, language-driven perception and prediction, supporting the value of dense world understanding across driving tasks.</p>
+            <p><strong>Sparse actions can be grounded in a rich internal understanding of the driving world.</strong></p>
+          </div>
+          <figure class="overview-results-figure">
+            <a href="assets/figure-2.png" aria-label="Open full-size Figure 2: benchmark comparison"><img src="assets/figure-2.png" width="2491" height="1008" alt="Figure 2. Radar charts comparing LECDrive with Qwen2.5-VL, specialist models and VGGDrive on trajectory planning, perception and prediction metrics."></a>
+            <figcaption><strong>Figure 2.</strong> Quantitative comparison across planning, perception and prediction benchmarks.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="framework" aria-labelledby="framework-title">
+      <div class="section-top"><div><span class="section-no">02 / METHOD</span><h2 id="framework-title">Latent Expert Cognitive Chains</h2></div><p class="section-aside">Representation. Semantics. Geometry.</p></div>
+      <figure class="framework-figure"><a href="assets/framework.png" aria-label="Open full-size LECDrive architecture"><img src="assets/framework.png" width="1214" height="633" alt="LECDrive architecture showing per-view token injection, VLM layers, latent feature aggregation, DINO, SAM and depth heads, and motion token plus offset planning."></a><figcaption>A compact latent interface connects dense world modeling with sparse driving actions. Frozen teachers provide supervision during training.</figcaption></figure>
+      <div class="contributions">
+        <article><span class="mini-label blue">01 / COMPACT LATENT TOKENS</span><h3>A small interface to dense knowledge</h3><p>Inject task-specific DINO, SAM and depth tokens after each view’s visual tokens. Aggregate their hidden states across VLM layers to preserve complementary information.</p></article>
+        <article><span class="mini-label green">02 / PROGRESSIVE COGNITION</span><h3>Representation to semantics to geometry</h3><p>Internalize knowledge from DINOv3, SAM3 and DepthAnything3 through lightweight prediction heads and structured expert supervision.</p></article>
+        <article><span class="mini-label orange">03 / PRECISE SPARSE ACTIONS</span><h3>Motion primitives with continuous refinement</h3><p>Retrieve discrete motion primitives and refine them with continuous offsets, combining structured action generation with precise trajectory prediction.</p></article>
+      </div>
+      <figure class="framework-figure">
+        <a href="assets/figure-4.png" aria-label="Open full-size Figure 4: LECDrive across driving tasks"><img src="assets/figure-4.png" width="2479" height="1212" loading="lazy" alt="Figure 4: LECDrive trajectory planning, dense world modeling, risk object perception and state prediction."></a>
+        <figcaption><strong>Figure 4. LECDrive across driving tasks.</strong> The visualizations show trajectory planning alongside semantic segmentation and depth predictions, as well as risk object perception and state prediction, illustrating how dense world understanding supports diverse driving tasks.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="results" aria-labelledby="results-title">
+      <span class="section-no">03 / RESULTS</span><h2 id="results-title">Model Performance</h2>
+      <p class="section-intro">LECDrive improves trajectory planning, risk perception and state prediction across NAVSIM, NuInstruct and DriveLM.</p>
+      <div class="results-carousel" role="region" aria-roledescription="carousel" aria-label="Tables 1 to 4: model performance" tabindex="0">
+        <button class="results-arrow" id="results-prev" type="button" aria-label="Previous results table" aria-controls="results-slides" hidden>←</button>
+        <div id="results-slides">
+          <figure class="result-slide" aria-label="Table 1 of 4">
+            <a class="result-image" href="assets/table-1.png" aria-label="Open full-size Table 1: NAVSIM v1"><img src="assets/table-1.png" alt="Table 1. Performance comparison on NAVSIM v1 under closed-loop trajectory evaluation, including E2E methods and supervised fine-tuned VLA models."></a>
+            <figcaption><strong>Table 1 · NAVSIM v1</strong></figcaption>
+          </figure>
+          <figure class="result-slide" aria-label="Table 2 of 4">
+            <a class="result-image" href="assets/table-2.png" aria-label="Open full-size Table 2: NAVSIM v2"><img src="assets/table-2.png" alt="Table 2. Performance comparison on NAVSIM v2 navtest with state-of-the-art end-to-end approaches and supervised fine-tuned VLA models."></a>
+            <figcaption><strong>Table 2 · NAVSIM v2</strong></figcaption>
+          </figure>
+          <figure class="result-slide" aria-label="Table 3 of 4">
+            <a class="result-image" href="assets/table-3.png" aria-label="Open full-size Table 3: NuInstruct"><img src="assets/table-3.png" alt="Table 3. Risk object perception and state prediction on NuInstruct. Average is max((Accuracy + MAP + BLEU - MAE) / 4, 0)."></a>
+            <figcaption><strong>Table 3 · NuInstruct</strong></figcaption>
+          </figure>
+          <figure class="result-slide" aria-label="Table 4 of 4">
+            <a class="result-image" href="assets/table-4.png" aria-label="Open full-size Table 4: DriveLM"><img src="assets/table-4.png" alt="Table 4. Comparison on DriveLM for risk object perception, action prediction and planning."></a>
+            <figcaption><strong>Table 4 · DriveLM</strong></figcaption>
+          </figure>
+        </div>
+        <button class="results-arrow" id="results-next" type="button" aria-label="Next results table" aria-controls="results-slides" hidden>→</button>
+      </div>
+      <p class="results-counter" id="results-counter" role="status" aria-live="polite" hidden></p>
+    </section>
+
+    <section class="section" id="demos" aria-labelledby="demos-title">
+      <div class="section-top"><div><span class="section-no">04 / VISUALIZATIONS</span><h2 id="demos-title">LECDrive in action</h2></div></div>
+      <div id="demo-gallery"></div>
+      <noscript>
+        <p><img src="assets/demos/1.gif" alt="LECDrive driving demonstration 1" loading="lazy"></p>
+        <p><img src="assets/demos/1_1.gif" alt="LECDrive driving demonstration 2" loading="lazy"></p>
+        <p><img src="assets/demos/1-2.gif" alt="LECDrive driving demonstration 3" loading="lazy"></p>
+        <p><img src="assets/demos/9-1.gif" alt="LECDrive driving demonstration 4" loading="lazy"></p>
+      </noscript>
+    </section>
+
+    <section class="section" id="citation" aria-labelledby="citation-title">
+      <div class="section-top"><div><span class="section-no">05 / CITATION</span><h2 id="citation-title">BibTeX</h2></div><button class="copy-button" id="copy-citation" type="button">Copy citation</button></div>
+      <pre><code id="bibtex">@inproceedings{wang2026lecdrive,
+  title     = {Think Densely, Act Sparsely: Latent Expert Cognitive Chains for Vision-Language-Action Autonomous Driving},
+  author    = {Wang, Jie and Li, Guang and Huang, Zhijian and Li, Jinlong and Dang, Chenxu and Ye, Hangjun and Han, Yahong and Chen, Long},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2026}
+}</code></pre>
+      <p id="copy-status" class="table-note" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+  <footer><a class="wordmark" href="#top">LEC<span>Drive</span></a><p>Latent Expert Cognitive Chains for autonomous driving.</p><a href="https://wj-cv.github.io/VGGDrive/">Related work: VGGDrive ↗</a></footer>
+</body>
+</html>
